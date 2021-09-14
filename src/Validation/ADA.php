@@ -51,7 +51,8 @@ class ADA extends Base58Validation
         if (!$valid) {
             // maybe it's a bech32 address
             try {
-                $valid = is_array($decoded = Bech32Decoder::decodeRaw($address)) && 'addr' === $decoded[0];
+                $prefixes = ['addr', 'addr_test'];
+                $valid = is_array($decoded = Bech32Decoder::decodeRaw($address)) && in_array($decoded[0], $prefixes);
             } catch (Bech32Exception $exception) {}
         }
 
